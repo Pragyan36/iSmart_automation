@@ -1,0 +1,119 @@
+// Jenkinsfile for Flutter with Flavors
+
+pipeline {
+    agent any
+
+    // Set global environment variables
+    environment {
+        PATH = "/opt/flutter/bin:${env.PATH}"
+        ANDROID_HOME = "/opt/android/sdk"
+        // Set the timezone for the pipeline to Nepal Standard Time
+        TZ = 'Asia/Kathmandu'
+        // It's highly recommended to manage this using Jenkins' Credentials management.
+        // For example, you could use a 'Secret file' credential with the ID 'google-play-api-key'.
+        SUPPLY_JSON_KEY = credentials('google-play-api-key')
+    }
+
+    // Add parameters to the Jenkins job. This will create a "Build with Parameters" option.
+    parameters {
+        choice(
+            name: 'DEPLOY_ACTION',
+            // Added BUILD_ONLY_APK and renamed BUILD_ONLY to BUILD_ONLY_AAB for clarity.
+            choices: ['BUILD_ONLY_AAB', 'BUILD_ONLY_APK', 'INTERNAL_SHARING', 'PLAY_STORE_PRODUCTION'],
+            description: 'What action should be performed for all flavors?'
+        )
+    }
+
+    stages {
+        stage('Checkout Code') {
+            steps {
+                // Clones the repository from the URL configured in the job
+                checkout scm
+            }
+        }
+
+        stage('Run Fastlane Actions and Archive Artifacts') {
+            steps {
+                dir('android') {
+                    script {
+                        def flavors = [
+  'udaymshil',
+  'siddharthaMulti',
+  'sankalpa',
+  ]
+                        // def flavors = ['aagraj','pariwortan']
+                        // def flavors = ['shreegorakhkali']
+                        // def flavors = ['shreegorakhkali','sahayatripokhara']
+                        
+                        // This list will keep track of any flavors that fail.
+                        def failedFlavors = []
+
+                        echo "Selected Action: ${params.DEPLOY_ACTION}"
+                        echo "Processing all flavors: ${flavors.join(', ')}"
+
+                        // Loop through each flavor and run the selected Fastlane action
+                        for (flavor in flavors) {
+                            echo "--- Starting action for flavor: ${flavor} ---"
+
+                            try {
+                                if (params.DEPLOY_ACTION == 'INTERNAL_SHARING') {
+                                    sh "fastlane internal_sharing flavor:${flavor}"
+                                    echo "Archiving AAB artifact for flavor: ${flavor}"
+                                    archiveArtifacts(
+                                        artifacts: "../../build/app/outputs/bundle/${flavor}Release/app-${flavor}-release.aab",
+                                        allowEmptyArchive: true
+                                    )
+                                } else if (params.DEPLOY_ACTION == 'PLAY_STORE_PRODUCTION') {
+                                    sh "fastlane deploy_to_play_store flavor:${flavor}"
+                                    echo "Archiving AAB artifact for flavor: ${flavor}"
+                                    archiveArtifacts(
+                                        artifacts: "../../build/app/outputs/bundle/${flavor}Release/app-${flavor}-release.aab",
+                                        allowEmptyArchive: true
+                                    )
+                                } else if (params.DEPLOY_ACTION == 'BUILD_ONLY_AAB') {
+                                    echo "Building App Bundle for flavor: ${flavor}"
+                                    sh "fastlane build_only_aab flavor:${flavor}"
+                                    echo "Archiving AAB artifact for flavor: ${flavor}"
+                                    archiveArtifacts(
+                                        artifacts: "../../build/app/outputs/bundle/${flavor}Release/app-${flavor}-release.aab",
+                                        allowEmptyArchive: true
+                                    )
+                                } else if (params.DEPLOY_ACTION == 'BUILD_ONLY_APK') {
+                                    echo "Building APK for flavor: ${flavor}"
+                                    sh "fastlane build_apk flavor:${flavor}"
+                                    echo "Archiving APK artifact for flavor: ${flavor}"
+                                    archiveArtifacts(
+                                        artifacts: "../../build/app/outputs/flutter-apk/app-${flavor}-release.apk",
+                                        allowEmptyArchive: true
+                                    )
+                                }
+                                echo "--- Successfully finished action for flavor: ${flavor} ---"
+                            } catch (e) {
+                                // If an error occurs, log it and add the flavor to our list of failures.
+                                // The loop will then continue to the next flavor.
+                                echo "Error processing flavor ${flavor}: ${e.getMessage()}"
+                                failedFlavors.add(flavor)
+                            }
+                        }
+
+                        // After the loop, check if the list of failed flavors is not empty.
+                        if (!failedFlavors.isEmpty()) {
+                            // If there were failures, fail the entire build now and list which flavors failed.
+                            error "Build failed for the following flavors: ${failedFlavors.join(', ')}"
+                        } else {
+                            echo "All flavors processed successfully."
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Pipeline finished.'
+            // You can add notifications here (e.g., Slack, Email)
+            // cleanWs() // Clean up the workspace
+        }
+    }
+}

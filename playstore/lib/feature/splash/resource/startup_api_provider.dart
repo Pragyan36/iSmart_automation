@@ -1,0 +1,68 @@
+import 'package:ismart/common/constant/env.dart';
+import 'package:ismart/common/http/api_provider.dart';
+import 'package:ismart/common/util/url_utils.dart';
+import 'package:ismart/feature/authentication/resource/user_repository.dart';
+
+class StartUpApiProvider {
+  StartUpApiProvider({
+    required this.baseUrl,
+    required this.apiProvider,
+    required this.userRepository,
+    required this.env,
+  });
+
+  final ApiProvider apiProvider;
+  final UserRepository userRepository;
+  final CoOperative env;
+  final String baseUrl;
+
+  fetchBannerImages() async {
+    final url = "$baseUrl" "get/bannerimage/";
+    return await apiProvider.get(
+      UrlUtils.getUri(url: url),
+      extraHeaders: {
+        "client": env.clientCode,
+        "type": "LoginScreenImage",
+      },
+      token: userRepository.token,
+      userId: -1,
+    );
+  }
+
+  fetchdefaultBannerImages() async {
+    final url = "$baseUrl" "get/bannerimage/";
+    return await apiProvider.get(
+      UrlUtils.getUri(url: url),
+      extraHeaders: {
+        "client": "EHVNI7CZJ3",
+        "type": "LoginScreenImage",
+      },
+      token: userRepository.token,
+      userId: -1,
+    );
+  }
+
+  fetchAppService() async {
+    final url = "$baseUrl"
+        "/appServiceManagement/appServices/bank/app/${env.clientCode}";
+    return await apiProvider.get(
+      UrlUtils.getUri(url: url),
+      extraHeaders: {
+        "client": "EHVNI7CZJ3",
+        "type": "LoginScreenImage",
+      },
+      token: userRepository.token,
+      userId: -1,
+    );
+  }
+
+  fetchAppConfig() async {
+    final url = "$baseUrl" "app-config/${env.clientCode}";
+    print("this is appinfo url $url");
+    return await apiProvider.get(
+      UrlUtils.getUri(url: url),
+      token: userRepository.token,
+      userId: -1,
+    );
+  }
+}

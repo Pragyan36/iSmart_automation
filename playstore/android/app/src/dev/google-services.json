@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "984430251777",
+    "project_id": "ismart---dev",
+    "storage_bucket": "ismart---dev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:984430251777:android:dfa3a27c07ea247d671500",
+        "android_client_info": {
+          "package_name": "com.devanasoft.ismart.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "984430251777-5qhm104ud6hb8om1r3pfs5fb53td4ktl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6kUz1-Djzat4iXNcUOwgc5LcdIHSMw9Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "984430251777-5qhm104ud6hb8om1r3pfs5fb53td4ktl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

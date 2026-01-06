@@ -1,0 +1,369 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:ismart/app/theme.dart';
+import 'package:ismart/common/common/data_state.dart';
+import 'package:ismart/common/constant/assets.dart';
+import 'package:ismart/common/constant/env.dart';
+import 'package:ismart/common/constant/slugs.dart';
+import 'package:ismart/common/navigation/navigation_service.dart';
+import 'package:ismart/common/route/routes.dart';
+import 'package:ismart/common/util/size_utils.dart';
+import 'package:ismart/common/widget/show_loading_dialog.dart';
+import 'package:ismart/common/widget/show_pop_up_dialog.dart';
+import 'package:ismart/feature/categoryWiseService/Topup/ui/screens/mobile_topup_page.dart';
+import 'package:ismart/feature/categoryWiseService/airlines/screen/airline_page.dart';
+import 'package:ismart/feature/categoryWiseService/broker/screen/broker_payment_page.dart';
+import 'package:ismart/feature/categoryWiseService/busBooking/screen/bus_booking_page.dart';
+import 'package:ismart/feature/categoryWiseService/creditCard/screen/credit_card_payment_page.dart';
+import 'package:ismart/feature/categoryWiseService/electricity/screen/electricity_payment_page.dart';
+import 'package:ismart/feature/categoryWiseService/kalimati_rent_service/screens/kalimati_rent_page.dart';
+import 'package:ismart/feature/categoryWiseService/landline/screen/landline_payment_page.dart';
+import 'package:ismart/feature/categoryWiseService/movie/screen/movie_page.dart';
+import 'package:ismart/feature/dashboard/homePage/homePageTabbar/servicesTab/cubit/category_cubit.dart';
+import 'package:ismart/feature/dashboard/homePage/homePageTabbar/servicesTab/model/category_model.dart';
+import 'package:ismart/feature/dashboard/homePage/homePageTabbar/servicesTab/screen/category_wise_services_page.dart';
+import 'package:ismart/feature/favorite/scheduledpayment/screen/schedulePage.dart';
+import 'package:ismart/feature/receiveMoney/remit/receiveRemit/screen/receive_remittance_page.dart';
+import 'package:ismart/feature/receiveMoney/remit/receiveRemit/screen/remittance_page.dart';
+
+class CategoryWidget extends StatefulWidget {
+  final bool showAllService;
+  const CategoryWidget({
+    Key? key,
+    this.showAllService = true,
+  }) : super(key: key);
+
+  @override
+  State<CategoryWidget> createState() => _CategoryWidgetState();
+}
+
+class _CategoryWidgetState extends State<CategoryWidget> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<CategoryCubit>().fetchCategory();
+  }
+
+  bool _isLoading = false;
+
+  List<CategoryList> _categoryList = [];
+
+  @override
+  Widget build(BuildContext context) {
+    final _theme = Theme.of(context);
+    final _textTheme = _theme.textTheme;
+    final _height = SizeUtils.height;
+    return Container(
+      padding: const EdgeInsets.only(top: 10),
+      decoration: BoxDecoration(
+          color: CustomTheme.white, borderRadius: BorderRadius.circular(18)),
+      child: BlocConsumer<CategoryCubit, CommonState>(
+        listener: (context, state) {
+          if (state is CommonLoading && !_isLoading) {
+            _isLoading = true;
+            showLoadingDialogBox(context);
+          } else if (state is! CommonLoading && _isLoading) {
+            _isLoading = false;
+            NavigationService.pop();
+          }
+
+          if (state is CommonError) {
+            showPopUpDialog(
+              context: context,
+              message: state.message,
+              title: "Error",
+              showCancelButton: false,
+              buttonCallback: () {
+                NavigationService.pop();
+              },
+            );
+          }
+
+          if (state is CommonDataFetchSuccess<CategoryList>) {
+            _categoryList = state.data;
+            for (var item in _categoryList) {
+  print("Category: ${item.name}");
+  for (var service in item.services) {
+    print("  yooooo → ${service.serviceCategoryName} / ${service.uniqueIdentifier}");
+  }
+}
+           
+            _categoryList
+                .removeWhere((category) => category.name == "Remittance");
+          }
+        },
+        builder: (context, state) {
+          int itemLength;
+          bool showViewMore = false;
+
+          if (widget.showAllService) {
+            itemLength = _categoryList.length;
+          } else {
+            if (_categoryList.length > 11) {
+              itemLength = 12; // 7 items + 1 "View More" option
+              showViewMore = true;
+            } else {
+              itemLength = _categoryList.length;
+            }
+          }
+          if (itemLength > 0)
+            return GridView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: itemLength,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 4,
+                ),
+                itemBuilder: (context, index) {
+                  if (showViewMore && index == 11) {
+                    return InkWell(
+                      onTap: () {
+                        NavigationService.pushNamed(
+                            routeName: Routes.allServicesDashboard);
+                      },
+                      child: Column(
+                        children: [
+                          Container(
+                              height: _height * 0.03,
+                              child: CircleAvatar(
+                                  backgroundColor: _theme.primaryColor,
+                                  child: const Icon(
+                                    Icons.add,
+                                    color: Colors.white,
+                                  ))),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8),
+                            child: Center(
+                              child: Text(
+                                "View More".tr(),
+                                textAlign: TextAlign.center,
+                                style: _textTheme.titleSmall!
+                                    .copyWith(fontSize: 11.5),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  } else {
+                    final data = _categoryList[index];
+
+// Print category info
+print('Category: ${data.name} (ID: ${data.id})');
+
+// Print all services in this category
+for (var service in data.services) {
+  print('Service: ${service.serviceCategoryName} / ${service.uniqueIdentifier} | Cashback: ${service.cashBackView}  status: ${service.status} ');
+}
+
+                    final filteredItems = data.services
+                        .where((item) => item.cashBackView != null)
+                        .toList();
+
+         
+
+                    final _imageUrl =
+                        "${RepositoryProvider.of<CoOperative>(context).baseUrl}${data.imageUrl}";
+                    return InkWell(
+                      onTap: () {
+                        if (data.uniqueIdentifier.toString().toLowerCase() ==
+                            Slugs.topup) {
+                          NavigationService.push(
+                              target: MobileTopupPage(categoryList: data));
+                          return;
+                        }
+                        
+                        if (data.uniqueIdentifier.toString().toLowerCase() ==
+                            Slugs.brokerPage) {
+                          NavigationService.push(
+                              target: BrokerPaymentPage(
+                                  service: data.services.first));
+                    
+                        } else if (data.uniqueIdentifier
+                                .toString()
+                                .toLowerCase() ==
+                            "kalimati_rent_payment") {
+                          NavigationService.push(
+                              target: KalimatiRentPage(
+                            service: data.services[0],
+                          ));
+                        }
+                        else if (data.uniqueIdentifier
+                                .toString()
+                                .toLowerCase() ==
+                            "schedule_payment") {
+                          NavigationService.push(
+                              target: const SchedulePage(
+                           
+                          ));
+                          
+                        } else if (data.uniqueIdentifier
+                                .toString()
+                                .toLowerCase() ==
+                            "electricity") {
+                          NavigationService.push(
+                              target: ElectricityPaymentPage(
+                            service: data.services[0],
+                          ));
+                        } 
+                        // else if (data.uniqueIdentifier
+                        //         .toString()
+                        //         .toLowerCase() ==
+                        //     "remittance") {
+                        //   NavigationService.push(
+                        //       target: ReceiveRemittancePage(
+                           
+                        //   ));
+                        // } 
+                        else if (data.uniqueIdentifier
+                                .toString()
+                                .toLowerCase() ==
+                            "credit_card") {
+                          NavigationService.push(
+                              target: CreditCardPaymentPage(
+                            service: data.services[0],
+                          ));
+                        } else if (data.uniqueIdentifier
+                                    .toString()
+                                    .toLowerCase() ==
+                                "landline".toLowerCase() ||
+                            data.uniqueIdentifier.toString().toLowerCase() ==
+                                "category".toLowerCase()) {
+                          NavigationService.push(
+                              target: LandlinePaymentPage(
+                            category: data,
+                          ));
+                        } else if (data.uniqueIdentifier
+                                .toString()
+                                .toLowerCase() ==
+                            "movies".toLowerCase()) {
+                          NavigationService.push(
+                              target: MoviePage(
+                            category: data,
+                          ));
+                        } else if (data.uniqueIdentifier
+                                .toString()
+                                .toLowerCase() ==
+                            Slugs.busTicket) {
+                          NavigationService.push(
+                              target: BusBookingPage(
+                            service: data.services.first,
+                          ));}
+                          else if (data.uniqueIdentifier
+                                .toString()
+                                .toLowerCase() ==
+                            Slugs.airlines) {
+                          NavigationService.push(
+                              target: AirlinesIntroPage(
+                            service: data.services.first,
+                          ));
+                          
+                        }   else {
+                          NavigationService.push(
+                            target: CategoriesWiseServicePage(
+                                uniqueIdentifier: data.uniqueIdentifier,
+                                services: data.services,
+                                topBarName: data.name),
+                          );
+                        }
+                      },
+                      child: Stack(
+                        children: [
+                          data.isNew == true
+                              ? Container(
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 4),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5)),
+                                  child: Align(
+                                    alignment: Alignment.topRight,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          color: Colors.red,
+                                          borderRadius:
+                                              BorderRadius.circular(4)),
+                                      padding: const EdgeInsets.all(2),
+                                      child: Text(
+                                        'New',
+                                        style: _textTheme.bodyLarge!.copyWith(
+                                            color: CustomTheme.white,
+                                            fontSize: 7),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              : Container(),
+                          Column(
+                            children: [
+                              Container(
+                                height: _height * 0.03,
+                                child: _imageUrl.toLowerCase().contains("svg")
+                                    ? SvgPicture.network(
+                                        _imageUrl,
+                                        color: _theme.primaryColor,
+                                        placeholderBuilder:
+                                            (BuildContext context) => Center(
+                                          child: Image.asset(
+                                            Assets.logoImage,
+                                          ),
+                                        ),
+                                      )
+                                    : Image.network(
+                                        _imageUrl,
+                                        errorBuilder:
+                                            (context, error, stackTrace) {
+                                          return Center(
+                                            child: Image.asset(
+                                              Assets.logoImage,
+                                            ),
+                                          );
+                                        },
+                                      ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 8),
+                                child: Center(
+                                  child: Text(
+                                    "${data.name.tr()}",
+                                    maxLines: 2,
+                                    textAlign: TextAlign.center,
+                                    style: _textTheme.titleSmall!
+                                        .copyWith(fontSize: 11.5),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              ),
+                              filteredItems.isNotEmpty
+                                  ? Container(
+                                      margin: const EdgeInsets.only(bottom: 4),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 4),
+                                      decoration: BoxDecoration(
+                                          color: CustomTheme.primaryColor,
+                                          borderRadius:
+                                              BorderRadius.circular(5)),
+                                      child: Text(
+                                        "${filteredItems[0].cashBackView} cashback",
+                                        overflow: TextOverflow.ellipsis,
+                                        style: _textTheme.bodyLarge!.copyWith(
+                                            color: CustomTheme.white,
+                                            fontSize: 9),
+                                      ),
+                                    )
+                                  : Container(),
+                            ],
+                          ),
+                        ],
+                      ),
+                    );
+                  }
+                });
+          return Container();
+        },
+      ),
+    );
+  }
+}

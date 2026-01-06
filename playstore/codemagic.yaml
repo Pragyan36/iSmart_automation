@@ -1,0 +1,40 @@
+# codemagic.yaml
+workflows:
+  build-listed-flavors:
+    name: Build Listed Android Flavors
+    instance_type: mac_mini_m1
+    environment:
+      flutter: stable
+    scripts:
+      - name: Define the list of flavors to build
+        script: |
+          # ⚙️ ACTION REQUIRED: Edit this list with the exact flavor names you want to build.
+          BUILD_FLAVORS=(
+            "suryadev"
+          )
+      - name: Set up local.properties
+        script: |
+          echo "flutter.sdk=$FLUTTER_ROOT" > "$FCI_BUILD_DIR/android/local.properties"
+      - name: Get Flutter packages
+        script: |
+          flutter packages get
+      - name: ⚙️ Build APKs for each flavor using a loop
+        script: |
+          set -e # Exit immediately if a build fails
+          for flavorName in "${BUILD_FLAVORS[@]}"; do
+            echo " " # Add a space for better log readability
+            echo "🚀 Starting build for flavor: $flavorName"
+            flutter build apk --release --flavor "$flavorName" -t lib/main.dart
+            echo "✅ Successfully built flavor: $flavorName"
+          done
+    artifacts:
+      # This pattern finds and saves all generated APKs
+      - build/app/outputs/flutter-apk/app-*-release.apk
+    publishing:
+      # 📦 Optional: Distribute your builds
+      email:
+        recipients:
+          - nirajkaranjeet.work@gmail.com
+        notify:
+          success: true
+          failure: false

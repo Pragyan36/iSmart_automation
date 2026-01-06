@@ -1,0 +1,631 @@
+---
+name: ismart
+description: A new Flutter project.
+publish: none
+
+version: 1.5.50+80
+
+
+
+## kamana -24 Sep - kamana (khanepani updated)
+
+environment:
+  sdk: ">=3.4.3 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: "^1.0.4"
+  flutter_map: ^8.2.2
+  latlong2: ^0.9.1
+
+  intl: ^0.20.2
+  record: ^6.0.0
+  just_audio: ^0.10.3
+  flutter_svg: "^2.0.9"
+  cached_network_image: "^3.3.1"
+  flutter_cache_manager: "^3.3.0"
+  shimmer: "^3.0.0"
+  equatable: "^2.0.3"
+  flutter_bloc: ^9.1.0
+  rxdart: ^0.28.0
+  logger: "^2.2.0"
+  dio: ^5.9.0
+  nepali_date_picker: ^7.0.1
+  shared_preferences: ^2.3.3 ##use this to make setttings
+  easy_localization: "^3.0.8"
+  path_provider: "^2.1.5"
+  
+  encrypt: "^5.0.0"
+  firebase_core: ^4.2.1
+  firebase_messaging: ^16.0.4
+  local_auth: ^2.1.6
+  flutter_secure_storage: ^9.2.4
+  pin_code_fields: "^8.0.1"
+  url_launcher: "^6.3.2"
+  url_launcher_ios: ^6.2.1
+  flutter_html: ^3.0.0
+  vpn_connection_detector: ^1.0.10
+
+  animations: "^2.0.11"
+  screenshot: ^3.0.0
+  syncfusion_flutter_charts: ^31.2.5
+  carousel_slider: ^5.0.0
+  share_plus: ^12.0.1
+  flutter_downloader: ^1.12.0
+  android_path_provider: ^0.3.1
+  jiffy: "^6.3.1"
+  awesome_notifications: ^0.10.0
+  package_info_plus: ^8.3.1
+  uuid: ^4.5.1
+  permission_handler: ^12.0.1
+  mobile_scanner: ^7.1.3
+  image_picker: "^1.1.2"
+  flutter_fgbg: ^0.7.1
+  device_marketing_names: ^1.0.2
+  open_filex: ^4.7.0
+
+
+  new_version_plus: ^0.1.2
+  in_app_update: "^4.1.4"
+  # new_version_plus: "^0.0.12"
+  fluttertoast: ^9.0.0
+  sliver_tools: "^0.2.12"
+  string_similarity: "^2.0.0"
+  local_session_timeout: ^3.2.0
+  crop_your_image: ^2.0.0
+  flutter_native_contact_picker: ^0.0.10
+  image_cropper: "^11.0.0"
+  hive_flutter: "^1.1.0"
+  khalti_checkout_flutter: ^1.0.0-dev.9 ## upgrade to dev.9
+  nepali_utils: ^3.0.6
+  flutter_zxing: ^2.2.1
+  percent_indicator: ^4.2.4
+  device_preview: ^1.3.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  build_runner: "^2.4.13"
+  change_app_package_name: "^1.4.0"
+  flutter_launcher_icons: ^0.14.1
+  icons_launcher: ^3.0.2
+dependency_overrides:
+  # image_cropper_platform_interface: 6.0.3
+  http: "^1.2.2"
+  package_info_plus: ^8.3.1
+  flutter_inappwebview_ios: ^1.1.2
+
+flutter:
+  assets:
+
+    # - assets/kunchhal/
+    # - assets/garibiNiwaran/
+    - assets/shreebriddhi/
+    - assets/siddharthaMulti/
+    # - assets/shreebriddhi/
+    - assets/siddharthaMulti/
+    - assets/sukunda/
+    # - assets/shreeJanajagaran/
+    # - assets/divya/
+    # - assets/shreeAnand/
+    # - assets/shubhadipawali/
+    # - assets/jagathit/
+    # - assets/sita/
+    # - assets/jeevanSathi/
+    # - assets/siddhikhar/
+    # - assets/sajhedari/
+    # - assets/shreelokkalyankari/
+    # - assets/gongabu/
+    # - assets/madiMulti/
+    # - assets/namaste/
+    # - assets/bajrangabali/
+    # - assets/samargra/
+    # - assets/model/
+    # - assets/luniva/
+    #  - assets/karobar/
+    # - assets/mahilapariwaratn/
+    # - assets/arnikomajdur/
+    # - assets/arthanjali/
+    # - assets/nepalKishan/
+    # - assets/sundarbazar/
+    # - assets/salleni/
+    # - assets/lokpriya/
+    # - assets/sewashubharambha/
+    # - assets/marma/
+    # - assets/shreeMallaj/
+    # - assets/loyal/
+    # - assets/bhadrawati/
+    # - assets/ekta/
+    # - assets/aviyanMulti/
+    # - assets/darshan/
+    # - assets/tathali/
+    # - assets/jagaruk/
+    # - assets/sorna/
+    # - assets/hanumandhoka/
+    # - assets/shreepatalGanga/
+    # - assets/goldstar/
+    # - assets/nawatara/
+    # - assets/nayapusta/
+    # - assets/akkaladevi/
+    # - assets/hamroSaving/
+    # - assets/shikhar/
+    # - assets/sahayogi/
+    # - assets/ujyalo/
+    # - assets/babaNarsingh/
+    # - assets/setogurans/
+    # - assets/satyeta/
+    # - assets/join/
+    # - assets/asaMulti/
+
+    # - assets/janakalyanbahumukhi/
+    # - assets/shreeBakhan/
+    # - assets/janachetana/
+    # - assets/abhilekh/
+    - assets/mechinagar/
+    - assets/western/
+    - assets/janakalyanbahumukhi/
+    # - assets/hamroSaving/
+    # - assets/gaja/
+    # - assets/arunjyoti/
+    # - assets/paryatan/
+    # - assets/ekata/
+    # - assets/sadasyaSewa/
+    - assets/neela/
+    # - assets/nhugupala/
+    # - assets/shreegorakhkali/
+    # - assets/kunchhal/
+    # - assets/samajkalyan/
+    # - assets/sahayatripokhara/
+    # - assets/manakamana/
+    # - assets/patan/
+    # - assets/pariwortan/
+    # - assets/santaneshwornaudhara/
+    # - assets/unitedhands/
+    # - assets/janasambriddhi/
+    # - assets/hamro/
+    # - assets/aanbukhaireni/
+    # - assets/taudaha/
+    # - assets/shreejanshil/
+    # - assets/janataagri/
+    # - assets/upasanawomen/
+    # - assets/mitra/
+    # - assets/abhyudaya/
+    - assets/udaymshil/
+    # - assets/maaLaxmi/
+    # - assets/kanchanCoop/
+    # - assets/janapremi/
+    # - assets/nawayuba/
+    # - assets/manipur/
+    # - assets/maaLaxmi/
+    # - assets/aadhunikjana/
+    # - assets/naturalmulti/
+    # - assets/shreemandan/
+    # - assets/maruti/
+    # - assets/niyaman/
+    # - assets/youthvision/
+    # - assets/sahasradhara/
+    # - assets/race/
+    # - assets/kunphen/
+    # - assets/arthikBikash/
+    # - assets/mission/
+    # - assets/development/
+    # - assets/artharaksha/
+    # - assets/premier/
+    # - assets/lamjung/
+    # - assets/swarnim/
+    # - assets/hamroNewa/
+    - assets/janakalyanmulti/
+    # - assets/baglungmulti/
+
+    # - assets/besiShahar/
+
+    # - assets/shreeNawajyoti/
+    # - assets/janakalyanlamjung/
+    # - assets/kundahar/
+    # - assets/sahayatri/
+    # - assets/janak/
+    # - assets/adhikosh/
+    - assets/lapha/
+    # - assets/begnas/
+    # - assets/nagdhunga/
+    # - assets/rorang/
+    # - assets/sunganga/
+    # - assets/mahagauri/
+    # - assets/shreeChahana/
+    # - assets/bihani/
+    # - assets/nayapuime/
+    # - assets/bhimad/
+    # - assets/shreephulbari/
+    # - assets/gauthali/
+    # - assets/ashish/
+    # - assets/shreeSiddhiSankalpa/
+    # - assets/jayamahalaxmi/
+    # - assets/dhanrasi/
+    # - assets/kamdhenu/
+    # - assets/sambriddhi/
+    - assets/translations/
+    - assets/
+    - assets/icons/
+    - assets/events/
+    - assets/images/
+    # - assets/janadhara/
+    # - assets/ppmulti/
+    # - assets/laxmiDeep/
+    # - assets/ainchoPaincho/
+    # - assets/shreeFulbari/
+    # - assets/digoBikash/
+    # - assets/sahakarya/
+    # - assets/kabil/
+    # - assets/uttarganga/
+    # - assets/kabil/
+    # - assets/uttarganga/
+    # - assets/kabil/
+    # - assets/uttarganga/
+    # - assets/kabil/
+    # - assets/bhaktapur_saccos/
+    # - assets/abhiyan/
+    # - assets/kamana/
+    # - assets/arthaBag/
+    # - assets/gomaGanesh/
+    # - assets/alankar/
+    # - assets/manank/
+    # - assets/shreeaaju/
+    # - assets/shreemitra/
+    - assets/kipoo/
+    # - assets/suryadev/
+    # - assets/uddhamshil/
+    # - assets/navaprabhat/
+    # - assets/utkrishta/
+    # - assets/vyas/
+    # - assets/infinity/
+    # - assets/moneyPlant/
+    # - assets/newGeneration/
+
+    # - assets/pratham/
+    # - assets/newdhaulagiri/
+    # - assets/shreejanamukhi/
+    # - assets/bishal/
+
+    # - assets/sardikhola/
+    # - assets/kripalu/
+    # - assets/sarbahit/
+    # - assets/bhanjyang/
+    # - assets/nawajosh/
+    # - assets/gandakibesi/
+    # - assets/kripalu/
+    # - assets/upadesh/
+    # - assets/nirika/
+    # - assets/gandakibesi/
+    # - assets/batika/
+    # - assets/bhugol/
+    # - assets/nepalbachat/
+    # - assets/nilgiri/
+    # - assets/davisfall/
+    # - assets/sanchar/
+    # - assets/hamiSabaikokrishi/
+    # - assets/machhapuchhre/
+    # - assets/nawajosh/
+    # - assets/tikeshwar/
+    # - assets/fewa/
+    # - assets/matribhumi/
+    # - assets/gandakibesi/
+    # - assets/batika/
+    # - assets/bhugol/
+    # - assets/nepalbachat/
+    # - assets/nilgiri/
+    # - assets/davisfall/
+    # - assets/sanchar/
+    # - assets/rumjatar/
+    # - assets/supreme/
+    # - assets/iconsoftCoop/
+    # - assets/sagarmatha/
+    # - assets/royalGorkha/
+    # - assets/buddhaCoop/
+    # - assets/punja/
+    # - assets/immanuel/
+    # - assets/ajambari/
+    # - assets/thankotMahilaJagaran/
+    # - assets/bishnudol/
+    # - assets/automobiles/
+    # - assets/chandani/
+
+    # - assets/annapurna/
+    # - assets/kanchanjungha/
+    # - assets/janasewa/
+    # - assets/golden/
+    # - assets/nayan/
+    # - assets/rithepani/
+    # - assets/shreeSubhakamana/
+    # - assets/bishalMulti/
+    - assets/shreeMyagde/
+    # - assets/shreeMyagde/
+    # - assets/aarati/
+    - assets/vaidhik/
+    # - assets/shreeKalika/
+    # - assets/shreeHemja/
+    # - assets/garimaAgri/
+    # - assets/paschimanchal/
+    # - assets/chirayu/
+    # - assets/digitalCoop/
+    # - assets/upakar/
+    # - assets/subhodaya/
+    # - assets/garimaAgri/
+    # - assets/aastha/
+    # - assets/sunshine/
+    # - assets/sunshineLaxmi/
+    # - assets/sudarshan/
+
+    # - assets/charnath/
+    - assets/shubhaSandesh/
+    # - assets/mangaldeep/
+    # - assets/triyuga/
+    # - assets/sudarshan/
+    # - assets/metrang/
+    # - assets/indreni/
+    # - assets/uttarbahini/
+    # - assets/noor/
+    # - assets/jharana/
+    # - assets/chaughada/
+    # - assets/avatar/
+    # - assets/janasewamulti/
+    # - assets/hetauda/
+    # - assets/pragatishil/
+    - assets/youthvoice/
+    # - assets/shital/
+    # - assets/darshan/
+    # - assets/devshree/
+    # - assets/uddhamshilKrishi/
+    # - assets/smartUddhamshil/
+    # - assets/shreeDigopan/
+    # - assets/queenCoop/
+    # - assets/queenCoop/
+    # - assets/nayakiran/
+    # - assets/kendrabindu/
+    # - assets/eastwest/
+    # - assets/babira/
+    # - assets/ektaMultipurpose/
+    # - assets/sarbahitDang/
+    # - assets/shwetbhairab/
+    # - assets/karmath/
+    # - assets/shreeEkapta/
+    # - assets/shreeSiddhiGanesh/
+    # - assets/mithila/
+    # - assets/shreeMahilaTarkari/
+    # - assets/shreeJanaEkikrit/
+    # - assets/shreeMiteree/
+    # - assets/janata/
+    # - assets/agrasar/
+    # - assets/khotangJaleshwori/
+    # - assets/aakashbani/
+    # - assets/starlight/
+    # - assets/shreeMarsyangdi/
+    # - assets/puspanjali/
+    # - assets/shankhadhar/
+    # - assets/autobikash/
+    # - assets/amrapali/
+    # - assets/abhibadan/
+    # - assets/tanahunKalika/
+    # - assets/khullabajar/
+    # - assets/chandani/
+    # - assets/sparkling/
+    # - assets/lifeVision/
+    # - assets/pacific/
+    # - assets/samutthan/
+    # - assets/dhanaprapti/
+    # - assets/globalMulti/
+    # - assets/hamroDahachok/
+    # - assets/shreeNawadeep/
+    # - assets/belchautara/
+    # - assets/shubhashreeMulti/
+    # - assets/shubhaShree/
+    # - assets/yugbani/
+    # - assets/bouddhamode/
+    # - assets/mangalpur/
+    # - assets/shreeGanesh/
+    # - assets/graminAarthik/
+    # - assets/samyukta/
+    # - assets/systematic/
+    # - assets/systematic/
+    # - assets/shreeJamune/
+    # - assets/drabya/
+    # - assets/omshreeom/
+    # - assets/upayogi/
+    # - assets/sakar/
+    # - assets/aayam/
+    # - assets/kaldhara/
+    # - assets/shikshakheet/
+    # - assets/sarbajyoti/
+    # - assets/shubhsiris/
+    # - assets/rastrautthan/
+    # - assets/ekikrit/
+    # - assets/machhapuchreSystematic/
+    # - assets/parishrami/
+    # - assets/citySaving/
+    # - assets/sahara/
+    # - assets/wonderful/
+    # - assets/bhudev/
+    # - assets/shreeGodawari/
+    # - assets/navadurga/
+    # - assets/civil/
+    # - assets/lamosanghu/
+    # - assets/greenhouse/
+    # - assets/prime/
+    # - assets/jyotidaya/
+    # - assets/sunakothi/
+    # - assets/nagarik/
+    # - assets/thechomahilajagaran/
+    # - assets/sayapatri/
+    # - assets/jayshreenavadurga/
+    # - assets/united/
+    # - assets/gairigaun/
+    # - assets/manokanksha/
+    # - assets/tarapunja/
+    # - assets/ilum/
+    # - assets/asthaKrishi/
+    # - assets/sabhyaSamaj/
+    # - assets/sunadevi/
+    # - assets/samabeshi/
+    # - assets/aagan/
+    # - assets/sadasyaSewa/
+    # - assets/sadasyaSewa/
+    - assets/aagraj/
+    # - assets/karmashil/
+    # - assets/asaan/
+    # - assets/babylon/
+
+    # - assets/shakambhari/
+    - assets/tarkariphalafool/
+    # - assets/abhinna/
+    # - assets/adarsha/
+    # - assets/tapobhumi/
+    # - assets/samudayik/
+    # - assets/supya/
+    # - assets/shreepathibhara/
+    # - assets/maryadit/
+    # - assets/shreeSansari/
+    # - assets/chaulani/
+    # - assets/mahilaAbhiyan/
+    # - assets/sundarbagmati/
+    # - assets/amana/
+    # - assets/sklakhanpur/
+    # - assets/shreekrishna/
+    # - assets/dupcheshwor/
+    # - assets/shreebadhai/
+    # - assets/sklakhanpur/
+    # - assets/shreekrishna/
+    # - assets/dupcheshwor/
+    # - assets/gagankalika/
+    # - assets/argha/
+    # - assets/shreekrishna/
+    # - assets/dupche\shwor/
+    # - assets/camellia/
+    # - assets/agrajMahila/
+    # - assets/mahabir/
+    # - assets/abhiyankrishi/
+    # - assets/unnati/
+    # - assets/skOdraha/
+    # - assets/shreeKanchan/
+    # - assets/arjunchaupari/
+    # - assets/sajiloSaving/
+    # - assets/krishnaGandaki/
+    # - assets/shubhechha/
+    # - assets/uddhyamshilata/
+    # - assets/gaunle/
+    # - assets/kendradip/
+    # - assets/siddhibinayak/
+    # - assets/taksar/
+    # - assets/chetana/
+    # - assets/megaplus/
+    # - assets/shishuwa/
+    # - assets/shuvkarya
+    # - assets/sunischit/
+    # - assets/safal/
+    # - assets/shreeArunodaya/
+    - assets/ajambari/
+    # - assets/chaulani/
+    # - assets/arthaGanesh/
+    # - assets/janani/
+    # - assets/kshstrashakti/
+    # - assets/tokha/
+    # - assets/narayani/
+    # - assets/mahalaxmi/
+    # - assets/chadani/
+    # - assets/shreesapana/
+    # - assets/sampada/
+    # - assets/bishwakarma/
+    # - assets/pame/
+    # - assets/pratham/z
+    # - assets/dhanalaxmi/
+    # - assets/samriddha/
+    # - assets/kohinoor/
+    # - assets/bhargo/
+    # - assets/sarbashakti/
+    # - assets/janakalyan/
+    # - assets/pathibhara/
+    # - assets/indrawati/
+    # - assets/siddhartha/
+    # - assets/shubhashreebalkumari/
+    # - assets/paurakhi/
+    # - assets/paschimanchal/
+    - assets/sadasyaSewa/
+    - assets/aabhash/
+    # - assets/mirmire/
+
+    # - assets/nilpashan/
+    # - assets/jhigu/
+    # - assets/godawari/
+    # - assets/shreePaurakhi/
+    # - assets/sarba/
+    # - assets/prerana/
+    # - assets/nilgiree/
+    # - assets/sajha/
+    # - assets/samadhan/
+    # - assets/saptakaushika/
+    # - assets/aggrim/
+    # - assets/shreemalunga/
+    # - assets/people/
+    # - assets/shreechandani/
+    # - assets/subarnapur/
+    # - assets/narayaniMulti/
+    # - assets/samriddhaNepal/
+    # - assets/shreeTriganga/
+    - assets/sanjeewani/
+    # - assets/shreeKalidevi/
+    # - assets/aakash/
+    # - assets/shubhadipawali/
+    # - assets/atharwa/
+    # - assets/aichchhik/
+    # - assets/aichchhik/
+    - assets/kishanKalyan/
+    # - assets/nayapuime/
+    # - assets/shikhardeep/
+    # - assets/sandus/
+    # - assets/kasturi/
+    # - assets/ainchoPaincho/
+    # - assets/nepal/
+    # - assets/aniwarya/
+    # - assets/universe/
+
+    # sana kishan assets
+    # - assets/sanakishanHathasuwa/
+    # - assets/sanakishan/
+    # - assets/skKhudunabari/
+    # - assets/skKhajurgachhi/
+    # - assets/skKohabara/
+    # - assets/skPatigaun/
+    # - assets/skJhurkiya/
+    # - assets/skShankharpur/
+    # - assets/skDharan/
+    # - assets/sklakhanpur/
+    # - assets/skDhankuta/
+    # - assets/skChisapani/
+    # - assets/skWaling/
+    # - assets/skglobal/
+    # - assets/skBhawanipur/
+    # - assets/skDeuri/
+    # - assets/skDumarwana/
+    - assets/nayamilan/
+    # - assets/naradevi/
+    # - assets/shreeDupcheshowrMulti/
+    # - assets/shreeChhimeki/
+    # - assets/suryadarshanJhapa/
+    # - assets/swarnalaxmi/
+    # - assets/lordBuddha/
+    # - assets/purbiduwar/
+    # - assets/jmc/
+
+  fonts:
+    - family: popinbold
+      fonts:
+        - asset: assets/fonts/Poppins-Bold.ttf
+    - family: popin
+      fonts:
+        - asset: assets/fonts/Poppins-Regular.ttf
+    - family: popinsemibold
+      fonts:
+        - asset: assets/fonts/Poppins-SemiBold.ttf
+    - family: popinmedium
+      fonts:
+        - asset: assets/fonts/Poppins-Medium.ttf
+  uses-material-design: true
